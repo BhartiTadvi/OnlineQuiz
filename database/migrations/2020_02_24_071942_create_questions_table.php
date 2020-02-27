@@ -16,7 +16,8 @@ class CreateQuestionsTable extends Migration
         Schema::create('questions', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->longText('question');
-            $table->integer('answer_id')->nullable();
+            $table->integer('mark')->default(2);
+            $table->enum('is_active',array('active','inactive'));
             $table->softDeletes();
             $table->timestamps();
         });

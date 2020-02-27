@@ -35,10 +35,29 @@ Route::get('/subscribe','SubscriptionController@create');
 
 // Questions
 Route::get('/question-create','Backend\QuestionController@create')->name('question-create');
+
 Route::post('/question-store','Backend\QuestionController@store')->name('question-store
 ');
 
+Route::get('/question-show/{id}','Backend\QuestionController@show')->name('question-show');
+
+Route::get('/question-edit/{id}','Backend\QuestionController@edit')->name('question-edit');
+
+Route::delete('/question-delete/{id}','Backend\QuestionController@destroy')->name('question-delete');
+
 Route::get('/question-index','Backend\QuestionController@index')->name('question-index');
+
+Route::get('/answer-index','Backend\QuestionOptionController@index')->name('answer-index');
+
+Route::get('/answer-show/{id}','Backend\QuestionOptionController@show')->name('answer-show');
+
+Route::get('/answer-edit/{id}','Backend\QuestionOptionController@edit')->name('answer-edit');
+
+Route::delete('/answer-delete/{id}','Backend\QuestionOptionController@destroy')->name('answer-delete');
+
+
+
+
 
 
 

@@ -15,9 +15,7 @@
           <div class="box">
             <div class="box-header">
               <div class="pull-right">
-                <a href="{{route('question-create')}}" class="btn btn-success btn-sm" title="Add New question">
-                    <i class="fa fa-plus" aria-hidden="true"></i> Add Question
-                </a>
+                
                </div>
               </div>
               @if ($message = Session::get('success'))
@@ -36,23 +34,23 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($questions as $question)
+                        @foreach($answers as $answer)
                           <tr>
                               <td>{{$loop->iteration}}</td>
-                              <td>{{$question->question}}</td>
+                              <td>{{$answer->option}}</td>
                               <td>
-                                <a href="{{route('question-show',$question->id)}}" title="View Question">
+                                <a href="{{route('answer-show',$answer->id)}}" title="View Question">
                                 <button class="btn btn-success btn-sm">
                                   <i class="fa fa-eye" aria-hidden="true"></i> 
                                 </button>
                                 </a>
-                                <a href="{{route('question-edit',$question->id)}}" title="Edit Question">
+                                <a href="{{route('answer-edit',$answer->id)}}" title="Edit Question">
                                   <button class="btn btn-primary btn-sm">
                                     <i class="fa fa-pencil-square-o" aria-hidden="true">
                                     </i> Edit
                                   </button>
                                  </a>
-                                 <form method="POST" action="{{route('question-delete',$question->id)}}" accept-charset="UTF-8" style="display:inline">
+                                 <form method="POST" action="{{route('answer-delete',$answer->id)}}" accept-charset="UTF-8" style="display:inline">
                                     {{ method_field('DELETE') }}
                                     {{ csrf_field() }}
                                     <button type="submit" class="btn btn-danger btn-sm" title="Delete Category" onclick="return confirm(&quot;Confirm delete?&quot;)"><i class="fa fa-trash-o" aria-hidden="true"></i> Delete

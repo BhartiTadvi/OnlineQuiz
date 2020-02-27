@@ -59,7 +59,7 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href=""><i class="fa fa-circle-o"></i>Answers</a></li>
+            <li><a href="{{route('answer-index')}}"><i class="fa fa-circle-o"></i>Answers</a></li>
          </ul>
        </li>
       </ul>
