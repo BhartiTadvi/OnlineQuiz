@@ -15,7 +15,9 @@
           <div class="box">
             <div class="box-header">
               <div class="pull-right">
-                
+                <a href="{{route('group-create')}}" class="btn btn-success btn-sm" title="Add New question">
+                    <i class="fa fa-plus" aria-hidden="true"></i> Add Group
+                </a>
                </div>
               </div>
               @if ($message = Session::get('success'))
@@ -29,28 +31,27 @@
                     <thead>
                         <tr>
                           <th>#</th>
-                            <th>Question</th>
+                            <th>Group name</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($answers as $answer)
                           <tr>
                               <td>{{$loop->iteration}}</td>
-                              <td>{{$answer->answer}}</td>
+                              <td>{{$group->group_name}}</td>
                               <td>
-                                <a href="{{route('answer-show',$answer->id)}}" title="View Question">
+                                <a href="{{route('group-show',$group->id)}}" title="View Question">
                                 <button class="btn btn-success btn-sm">
                                   <i class="fa fa-eye" aria-hidden="true"></i> 
                                 </button>
                                 </a>
-                                <a href="{{route('answer-edit',$answer->id)}}" title="Edit Question">
+                                <a href="{{route('group-edit',$group->id)}}" title="Edit Question">
                                   <button class="btn btn-primary btn-sm">
                                     <i class="fa fa-pencil-square-o" aria-hidden="true">
                                     </i> Edit
                                   </button>
                                  </a>
-                                 <form method="POST" action="{{route('answer-delete',$answer->id)}}" accept-charset="UTF-8" style="display:inline">
+                                 <form method="POST" action="{{route('group-delete',$group->id)}}" accept-charset="UTF-8" style="display:inline">
                                     {{ method_field('DELETE') }}
                                     {{ csrf_field() }}
                                     <button type="submit" class="btn btn-danger btn-sm" title="Delete Category" onclick="return confirm(&quot;Confirm delete?&quot;)"><i class="fa fa-trash-o" aria-hidden="true"></i> Delete
@@ -58,11 +59,11 @@
                                   </form>
                                 </td>
                           </tr>
-                        @endforeach
+                        
                     </tbody>
                 </table>
-                  <div class="pagination-wrapper"> 
-                 </div>
+                <div class="pagination-wrapper"> 
+                </div>
               </div>
           </div>
        </div>

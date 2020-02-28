@@ -15,8 +15,9 @@ class CreateGroupsTable extends Migration
     {
         Schema::create('groups', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('group_A')->nullable();
-            $table->integer('group_B')->nullable();
+            $table->string('group_name');
+            $table->enum('is_active',array('active','inactive'));
+            $table->softDeletes();
             $table->timestamps();
         });
     }

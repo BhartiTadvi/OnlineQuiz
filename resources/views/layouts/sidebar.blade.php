@@ -61,6 +61,30 @@
           <ul class="treeview-menu">
             <li><a href="{{route('answer-index')}}"><i class="fa fa-circle-o"></i>Answers</a></li>
          </ul>
+        </li>
+        <li class="treeview">
+          <a href="#">
+            <i class="fa fa-laptop"></i>
+            <span>Manage Group</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="{{route('group-index')}}"><i class="fa fa-circle-o"></i>Group</a></li>
+         </ul>
+       </li>
+        <li class="treeview">
+          <a href="#">
+            <i class="fa fa-laptop"></i>
+            <span>Manage Level</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="{{route('answer-index')}}"><i class="fa fa-circle-o"></i>Level</a></li>
+         </ul>
        </li>
       </ul>
     </section>

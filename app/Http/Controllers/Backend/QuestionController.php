@@ -8,7 +8,9 @@ use Illuminate\Support\Facades\Validator;
 use App\Question;
 use App\Option;
 use App\Answer;
-use App\QuestionOption;
+use App\Group;
+use App\QuestionAnswer;
+use App\QuestionGroup;
 class QuestionController extends Controller
 {
     /**
@@ -29,7 +31,8 @@ class QuestionController extends Controller
      */
     public function create()
     {   
-        return view('questions.create');
+        $groups = Group::where('is_active','active')->get();
+        return view('questions.create',compact('groups'));
     }
 
     /**
@@ -42,28 +45,37 @@ class QuestionController extends Controller
     {   
         $request->validate([
             'question'=>'required', 
-            'option'=>'required', 
             'status'=>'required', 
-
         ]);
-
+        
         $questionObj = new Question();
         $questionObj->question = $request->question;
         $questionObj->is_active = $request->status;
         $questionObj->save();
-        
+
+        $questionGroup = new QuestionGroup();
+        $questionGroup->question_id = $questionObj->id;
+        $questionGroup->group_id = $request->group_id;
+        $questionGroup->save();
+
         $options = $request->option;
 
         foreach ($options as $key => $createOption) {
-            $optionObj = new QuestionOption();
-            $optionObj->option = $createOption;
-            $optionObj->question_id = $questionObj->id;
-            $optionObj->correct_option = $request->right_option;
-            $optionObj->save();
-        }
-       
 
-        return redirect()->route('question-index')->with('success', 'New banner added successfully');
+            $optionObj = new Answer();
+            $optionObj->answer = $createOption;
+            $optionObj->save();
+
+            $questionAnswerObj = new QuestionAnswer();
+            $questionAnswerObj->question_id = $questionObj->id;
+            $questionAnswerObj->answer_id = $optionObj->id;
+            
+            if($key == $request->correct_answer){
+                $questionAnswerObj->correct_answer = 1;
+            }
+            $questionAnswerObj->save();
+        }
+        return redirect()->route('question-index')->with('success', 'New question added successfully');
     }
 
     /**
@@ -99,7 +111,19 @@ class QuestionController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'question'=>'required', 
+            'status'=>'required', 
+        ]);
+          
+        $questionObj = Question::find($id);
+        $questionObj->question = $request->question;
+        $questionObj->is_active = $request->status;
+        $questionObj->save();
+        
+        if($questionObj->save()){
+            return redirect()->route('question-index')->with('success', 'Question updated successfully');
+        }
     }
 
     /**

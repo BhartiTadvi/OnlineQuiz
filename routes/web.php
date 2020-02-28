@@ -42,27 +42,32 @@ Route::post('/question-store','Backend\QuestionController@store')->name('questio
 Route::get('/question-show/{id}','Backend\QuestionController@show')->name('question-show');
 
 Route::get('/question-edit/{id}','Backend\QuestionController@edit')->name('question-edit');
+Route::post('/question-update/{id}','Backend\QuestionController@update')->name('question-update');
 
 Route::delete('/question-delete/{id}','Backend\QuestionController@destroy')->name('question-delete');
 
 Route::get('/question-index','Backend\QuestionController@index')->name('question-index');
 
-Route::get('/answer-index','Backend\QuestionOptionController@index')->name('answer-index');
+Route::get('/answer-index','Backend\AnswerController@index')->name('answer-index');
 
-Route::get('/answer-show/{id}','Backend\QuestionOptionController@show')->name('answer-show');
+Route::get('/answer-show/{id}','Backend\AnswerController@show')->name('answer-show');
 
-Route::get('/answer-edit/{id}','Backend\QuestionOptionController@edit')->name('answer-edit');
-
+Route::get('/answer-edit/{id}','Backend\AnswerController@edit')->name('answer-edit');
+Route::post('/answer-update/{id}','Backend\AnswerController@update')->name('answer-update');
 Route::delete('/answer-delete/{id}','Backend\QuestionOptionController@destroy')->name('answer-delete');
 
+Route::get('/group-index','Backend\GroupController@index')->name('group-index');
+Route::get('/group-create','Backend\GroupController@create')->name('group-create');
+Route::post('/group-store','Backend\GroupController@store')->name('group-store
+');
+Route::get('/group-edit/{id}','Backend\GroupController@edit')->name('group-edit');
 
+Route::get('/group-show/{id}','Backend\GroupController@show')->name('group-show');
+Route::post('/group-update/{id}','Backend\GroupController@update')->name('group-update');
 
+Route::delete('/group-delete/{id}','Backend\GroupController@destroy')->name('group-delete');
 
-
-
-
-
-
+Route::get('/level-index','Backend\LevelController@index')->name('level-index');
 
 Auth::routes();
 
