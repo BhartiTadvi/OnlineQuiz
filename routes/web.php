@@ -68,10 +68,18 @@ Route::post('/group-update/{id}','Backend\GroupController@update')->name('group-
 Route::delete('/group-delete/{id}','Backend\GroupController@destroy')->name('group-delete');
 
 Route::get('/level-index','Backend\LevelController@index')->name('level-index');
+Route::get('/test-create','TestController@create')->name('test-create');
+
+Route::post('/test-store','TestController@store')->name('test-store');
+
+Route::post('/result-show','TestController@show')->name('results-show');
+
+
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
 
 // Route::get('/create-question', 'QuestionAnswerController@create')->name('create-question');
 
