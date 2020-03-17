@@ -1,11 +1,10 @@
-
 @extends('layouts.master')
 @section('content')
     <div class="container">
         <div class="row">
             <div class="col-md-9">
                 <div class="box">
-                    <div class="box-header">Edit answer</div>
+                    <div class="box-header">Edit option</div>
                     <div class="box-body">
                      <form method="POST" action="{{route('answer-update',$answer->id)}}" id="create_question" accept-charset="UTF-8" class="form-horizontal">
                                             {{ csrf_field() }}

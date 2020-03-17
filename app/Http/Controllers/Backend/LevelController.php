@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backend;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Level;
 
 class LevelController extends Controller
 {
@@ -14,7 +15,9 @@ class LevelController extends Controller
      */
     public function index()
     {
-        return view('levels.index');
+        $perPage = 12;
+        $levels = Level::paginate($perPage);
+        return view('levels.index',compact('levels'));
     }
 
     /**
@@ -24,7 +27,7 @@ class LevelController extends Controller
      */
     public function create()
     {
-        //
+        return view('levels.create');
     }
 
     /**
@@ -35,7 +38,29 @@ class LevelController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'level_name'=>'required', 
+            'status'=>'required', 
+        ]);
+
+        $levelObj = new Level();
+        $levelObj->level_name = $request->level_name;
+        $levelObj->is_active = $request->status;
+    
+        if($levelObj->save()){
+            return redirect()->route('level-index')->with('success', 'New level added successfully');
+        }
+
+      try {
+        $levelObj = new Level();
+        $levelObj->level_name = $request->level_name;
+        $levelObj->is_active = $request->status;
+        if($levelObj->save()){
+            return redirect()->route('level-index')->with('success', 'New level added successfully');
+        }
+        }catch(\Throwable $th){
+          return redirect()->route('level-index')->with('errMsg', 'Something went wrong!');
+        }
     }
 
     /**
@@ -46,7 +71,19 @@ class LevelController extends Controller
      */
     public function show($id)
     {
-        //
+        $level = Level::find($id);
+
+        try {
+            if($level){
+                return view('levels.show',compact('level'));
+            }else{
+                return redirect()->route('level-index')->with('errmsg', 'Level not found');
+            }
+        }catch(\Throwable $th){
+            return redirect()->route('level-index')->with('errmsg', 'Something went wrong!');
+        }
+
+        
     }
 
     /**
@@ -57,7 +94,17 @@ class LevelController extends Controller
      */
     public function edit($id)
     {
-        //
+        $level = Level::find($id);
+
+        try {
+            if($level){
+            return view('levels.edit',compact('level'));
+            }else{
+                return redirect()->route('level-index')->with('errmsg', 'Level not found');
+            }
+        }catch(\Throwable $th){
+            return redirect()->route('level-index')->with('errmsg', 'Something went wrong!');
+        }
     }
 
     /**
@@ -69,9 +116,22 @@ class LevelController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        
+        $request->validate([
+            'level_name'=>'required', 
+            'status'=>'required', 
+        ]);
+
+        $levelObj = Level::find($id);
+        $levelObj->level_name = $request->level_name;
+        $levelObj->is_active = $request->status;
+        $levelObj->save();
+        return redirect()->route('level-index')->with('success', 'Level updated successfully');
+         
+                
     }
 
+       
     /**
      * Remove the specified resource from storage.
      *
@@ -80,6 +140,7 @@ class LevelController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Level::destroy($id);
+        return redirect()->route('level-index')->with('success', 'Level deleted successfully'); 
     }
 }

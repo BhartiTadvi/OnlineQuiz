@@ -25,6 +25,13 @@
                 <p>{{ $message }}</p>
               </div>
               @endif
+
+              @if ($errMessage = Session::get('errmsg'))
+              <div class="alert alert-danger">
+                <p>{{ $errMessage }}</p>
+              </div>
+              @endif
+              
           <!-- /.box-header -->
               <div class="box-body">
                 <table class="table">
@@ -36,10 +43,10 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($questions as $question)
+                        @forelse($questions as $question)
                           <tr>
                               <td>{{$loop->iteration}}</td>
-                              <td>{{$question->question}}</td>
+                              <td style="width: 789px;">{{$question->question}}</td>
                               <td>
                                 <a href="{{route('question-show',$question->id)}}" title="View Question">
                                 <button class="btn btn-success btn-sm">
@@ -60,11 +67,14 @@
                                   </form>
                                 </td>
                           </tr>
-                        @endforeach
+                        @empty
+                            <p>No data found</p>
+                        @endforelse
                     </tbody>
                 </table>
-                  <div class="pagination-wrapper"> 
-                 </div>
+                <div class="pagination-wrapper"> 
+                    {!! $questions->appends(['search' => Request::get('search')])->render() !!} 
+                </div>
               </div>
           </div>
        </div>

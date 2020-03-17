@@ -4,7 +4,7 @@
     <!-- Content Header (Page header) -->
   <section class="content-header">
     <h1>
-    Question
+    Group
     <small></small>
     </h1>
   </section>
@@ -25,6 +25,12 @@
                 <p>{{ $message }}</p>
               </div>
               @endif
+
+               @if ($message = Session::get('errmsg'))
+              <div class="alert alert-danger">
+                <p>{{ $message }}</p>
+              </div>
+              @endif
           <!-- /.box-header -->
               <div class="box-body">
                 <table class="table">
@@ -36,7 +42,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                      @foreach($groups as $group)
+                      @forelse($groups as $group)
                           <tr>
                               <td>{{$loop->iteration}}</td>
                               <td>{{$group->group_name}}</td>
@@ -60,10 +66,13 @@
                                   </form>
                                 </td>
                           </tr>
-                        @endforeach
+                          @empty
+                            <p>No data found</p>
+                        @endforelse
                     </tbody>
                 </table>
                 <div class="pagination-wrapper"> 
+                    {!! $groups->appends(['search' => Request::get('search')])->render() !!} 
                 </div>
               </div>
           </div>

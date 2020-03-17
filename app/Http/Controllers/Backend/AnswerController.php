@@ -15,7 +15,9 @@ class AnswerController extends Controller
      */
     public function index()
     {
-        $answers = Answer::get();
+         
+        $perPage = 12;
+        $answers = Answer::paginate($perPage);
         return view('answers.index',compact('answers'));
     }
 
@@ -29,8 +31,19 @@ class AnswerController extends Controller
      */
     public function show($id)
     {
-        $answer = Answer::findOrFail($id);
-        return view('answers.show',compact('answer'));
+        $answer = Answer::find($id);
+
+        try {
+            if($answer){
+                return view('answers.show',compact('answer'));
+            }else{
+                return redirect()->route('answer-index')->with('errmsg', 'Answer not found');
+            }
+        }catch(\Throwable $th){
+            return redirect()->route('answer-index')->with('errmsg', 'Something went wrong!');
+        }
+
+        
     }
 
     /**
@@ -41,8 +54,17 @@ class AnswerController extends Controller
      */
     public function edit($id)
     {
-        $answer = Answer::findOrFail($id);
-        return view('answers.edit',compact('answer'));
+        $answer = Answer::find($id);
+
+        try {
+            if($answer){
+                return view('answers.edit',compact('answer'));
+            }else{
+                return redirect()->route('answer-index')->with('errmsg', 'Answer not found');
+            }
+        }catch(\Throwable $th){
+            return redirect()->route('answer-index')->with('errmsg', 'Something went wrong!');
+        }
     }
 
     /**

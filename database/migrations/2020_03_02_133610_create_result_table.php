@@ -15,9 +15,11 @@ class CreateResultTable extends Migration
     {
         Schema::create('result', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->integer('test_id')->nullable();
             $table->integer('user_id')->nullable();
-            $table->string('correct')->nullable();
-            $table->integer('question_id')->nullable();
+            $table->integer('obtained_marks')->nullable();
+            $table->integer('total_marks')->nullable();
+            $table->integer('percentage')->nullable();
             $table->timestamps();
         });
     }

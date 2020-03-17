@@ -11,4 +11,9 @@ class Level extends Model
     protected $fillable = [
         'id', 'level_name',
     ];
+
+    public function groups(){
+    	return $this->hasMany('App\LevelGroup');
+    }
+    
 }

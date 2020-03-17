@@ -17,7 +17,7 @@ class CreateAnswersTable extends Migration
             $table->bigIncrements('id');
             $table->string('answer');
             $table->integer('question_id')->nullable();
-            $table->tinyInteger('correct_answer')->default('0');
+            $table->tinyInteger('correct_option')->nullable()->default(0);
             $table->softDeletes();
             $table->timestamps();
         });

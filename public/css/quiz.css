@@ -1,0 +1,151 @@
+body{ font: 14px Georgia, serif; }
+strong{font-size: 16px;}
+.option{font-size: 16px;}
+
+#page-wrap{ width: 500px; margin: 0 auto; }
+
+h1 { margin: 25px 0; margin-left: 201px;color: green; }
+
+#quiz input {
+    vertical-align: middle;
+}
+
+#quiz ol {
+   margin: 0 0 10px 20px;
+}
+
+#quiz ol li {
+   margin: 0 0 20px 0;
+}
+
+#quiz ol li div {
+   padding: 4px 0;
+}
+
+#quiz h3 {
+   font-size: 17px; margin: 0 0 1px 0; color: #666;
+}
+
+#results {
+    font: 44px Georgia, Serif;
+}
+#quiz{
+
+}
+
+	/* Style the form */
+#regForm {
+  background-color: #ffffff;
+  margin: 100px auto;
+  padding: 40px;
+  width: 70%;
+  min-width: 300px;
+}
+
+/* Mark input boxes that gets an error on validation: */
+input.invalid {
+  background-color: #ffdddd;
+}
+
+/* Hide all steps by default: */
+.tab {
+  display: none;
+  font-size:21px;
+}
+
+/* Make circles that indicate the steps of the form: */
+.step {
+  height: 15px;
+  width: 15px;
+  margin: 0 2px;
+  background-color: #bbbbbb;
+  border: none;
+  border-radius: 50%;
+  display: inline-block;
+  opacity: 0.5;
+}
+
+/* Mark the active step: */
+.step.active {
+  opacity: 1;
+}
+
+/* Mark the steps that are finished and valid: */
+.step.finish {
+  background-color: #4CAF50;
+}
+button{
+	background-color: #4CAF50;
+    color: #ffffff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 17px;
+    font-family: Raleway;
+    cursor: pointer;
+}
+.btn{
+    width: 122px;
+    height: 48px;
+    background: #264a9af7;
+    font-weight: bold;
+    color: white;
+    border: 0 none;
+    border-radius: 40px;
+    cursor: pointer;
+    padding: 10px 5px;
+    margin: 0px 0px 0px 0px;
+    font-size: 16px;
+}
+}
+.result{padding:0px 0px 0px 113px;}
+#submit{
+   
+	margin-left:100px;
+	color:white;
+}
+#onlineQuiz{
+  background-color: #ffffff;
+  margin: 100px auto;
+  padding: 245px;;
+  width: 70%;
+  min-width: 300px;
+}
+.quiz-btn{
+	margin-left:171px;
+	color:white;
+}
+.button{background-color: #016496;
+  color: #ffffff;
+  /*margin-left: 160px;*/
+  padding: 12px;font-weight: bold; 
+  font-size: 1.25em;
+}
+.card-body{margin-left:100px}
+h2{
+  margin-left: 600px;
+  margin-top: 100px;
+  color:green;
+  }
+.group{margin: 0px 0px 23px 69px;}
+#headquiz{
+  margin:-224px 0px 13px 169px;
+  font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+  font-size: 25px;
+  letter-spacing: 0.2px;
+  word-spacing: 0px;
+  color: #FF5FA9;
+  font-weight: normal;
+  text-decoration: none;
+  font-style: normal;
+  font-variant: normal;
+  text-transform: none;
+  }
+  #quiz{
+    background: white;
+    padding: 21px;
+    width: 648px;
+    margin: 0px 0px 0px -44px;
+
+  }
+  a{text-decoration: none;}
+ 

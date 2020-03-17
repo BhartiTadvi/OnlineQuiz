@@ -35,7 +35,7 @@
             </span>
           </a>
           <ul class="treeview-menu">     
-        <li><a href=""><i class="fa fa-circle-o"></i> Users</a></li>
+        <li><a href="{{route('user-index')}}"><i class="fa fa-circle-o"></i> Users</a></li>
          </ul>
         </li>
          <li class="treeview">
@@ -83,7 +83,19 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="{{route('answer-index')}}"><i class="fa fa-circle-o"></i>Level</a></li>
+            <li><a href="{{route('level-index')}}"><i class="fa fa-circle-o"></i>Level</a></li>
+         </ul>
+       </li>
+       <li class="treeview">
+          <a href="#">
+            <i class="fa fa-laptop"></i>
+            <span>Manage User Result</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="{{route('user-result-index')}}"><i class="fa fa-circle-o"></i> Result </a></li>
          </ul>
        </li>
       </ul>

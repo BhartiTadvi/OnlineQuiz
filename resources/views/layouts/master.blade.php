@@ -18,7 +18,7 @@
        folder instead of downloading all of them to reduce the load. -->
   <link rel="stylesheet" href="{{asset('dist/css/skins/_all-skins.min.css')}}">
   <!-- Morris chart -->
-  <link rel="stylesheet" href="{{asset('bower_components/morris.js/morris.css')}}">
+  <!-- <link rel="stylesheet" href="{{asset('bower_components/morris.js/morris.css')}}"> -->
   <!-- jvectormap -->
   <link rel="stylesheet" href="{{asset('bower_components/jvectormap/jquery-jvectormap.css')}}">
   <!-- Date Picker -->
@@ -33,7 +33,9 @@
   <style type="">.help-block{
     color: red!important;
 }
+.error{color: red!important;}
 .option{margin-top: 13px;}
+.required{color: red;}
 </style>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
@@ -82,8 +84,7 @@
 <script src="{{asset('dist/js/pages/dashboard.js')}}"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="{{asset('dist/js/demo.js')}}"></script>
-  <script src="https://parsleyjs.org/dist/parsley.min.js"></script>
-   <script src="{{asset('/vendor/unisharp/laravel-ckeditor/ckeditor.js')}}"></script>
+  
 @yield('script')
 </body>
 </html>

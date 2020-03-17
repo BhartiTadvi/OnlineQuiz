@@ -18,6 +18,45 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style type="text/css">
+    table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+    }
+    .table{width: 760px;}
+
+    td, th {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+    }
+    .box-body{
+        margin-left: 280px;
+    }
+    .head{margin-left: 560px;}
+    .analysis{margin-left: 287px;}
+    .checked {
+        color: orange;
+    }
+    .star-ratings-sprite-rating {
+      background: url("{{ asset('images/star-rating-sprite.png') }}") repeat-x;
+      background-position: 0 100%;
+      float: left;
+      height: 21px;
+      display: block;
+    }
+    .star-ratings-sprite {
+      background: url("{{ asset('images/star-rating-sprite.png') }}") repeat-x;
+      font-size: 0;
+      height: 21px;
+      line-height: 0;
+      overflow: hidden;
+      text-indent: -999em;
+      width: 110px;
+      margin: 0px 0px 0px 6px auto;
+    }
+</style>
 </head>
 <body>
     <div id="app">

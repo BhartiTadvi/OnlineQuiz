@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Backend;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Group;
+use App\Level;
+
 
 class GroupController extends Controller
 {
@@ -15,7 +17,8 @@ class GroupController extends Controller
      */
     public function index()
     {   
-        $groups = Group::get();
+        $perPage = 12;
+        $groups = Group::paginate($perPage);
         return view('groups.index',compact('groups'));
     }
 
@@ -25,7 +28,8 @@ class GroupController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {
+    {   
+        
         return view('groups.create');
     }
 
@@ -59,7 +63,16 @@ class GroupController extends Controller
     public function show($id)
     {
         $group = Group::find($id);
-        return view('groups.show',compact('group'));
+
+        try {
+            if($group){
+                return view('groups.show',compact('group'));
+            }else{
+                return redirect()->route('group-index')->with('errmsg', 'Group not found');
+            }
+        }catch(\Throwable $th){
+            return redirect()->route('group-index')->with('errmsg', 'Something went wrong!');
+        }
     }
 
     /**
@@ -71,7 +84,16 @@ class GroupController extends Controller
     public function edit($id)
     {
         $group = Group::find($id);
-        return view('groups.edit',compact('group'));
+
+        try {
+            if($group){
+            return view('groups.edit',compact('group'));
+        }else{
+            return redirect()->route('group-index')->with('errmsg', 'Group not found');
+        }
+        }catch(\Throwable $th){
+            return redirect()->route('group-index')->with('errmsg', 'Something went wrong!');
+        }
     }
 
     /**
@@ -89,12 +111,16 @@ class GroupController extends Controller
         ]);
 
         $groupObj = Group::find($id);
-        $groupObj->group_name = $request->group_name;
-        $groupObj->is_active = $request->status;
-
-        if($groupObj->save()){
+        
+        if($groupObj){
+            $groupObj->group_name = $request->group_name;
+            $groupObj->is_active = $request->status;
+            $groupObj->save();
             return redirect()->route('group-index')->with('success', 'Group updated successfully'); 
+        }else{
+            return redirect()->route('group-index')->with('errmsg', 'Group not found');
         }
+        
     }
 
     /**
@@ -105,8 +131,10 @@ class GroupController extends Controller
      */
     public function destroy($id)
     {
-        
-        Group::destroy($id);
-        return redirect()->route('group-index')->with('success', 'Group deleted successfully'); 
+        if(!empty($id)){
+            Group::destroy($id);
+            return redirect()->route('group-index')->with('success', 'Group deleted successfully');   
+        }
+        return redirect()->route('group-index')->with('errmsg', 'Group not found');
     }
 }

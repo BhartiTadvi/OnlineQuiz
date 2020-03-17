@@ -4,7 +4,7 @@
     <!-- Content Header (Page header) -->
   <section class="content-header">
     <h1>
-    Question
+    Option
     <small></small>
     </h1>
   </section>
@@ -23,13 +23,20 @@
                 <p>{{ $message }}</p>
               </div>
               @endif
+
+              @if ($errorMsg = Session::get('errmsg'))
+              <div class="alert alert-danger">
+                <p>{{ $errorMsg }}</p>
+              </div>
+              @endif
           <!-- /.box-header -->
               <div class="box-body">
                 <table class="table">
                     <thead>
                         <tr>
                           <th>#</th>
-                            <th>Question</th>
+                            <th>Option</th>
+                            <th>Correct Option</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -38,6 +45,11 @@
                           <tr>
                               <td>{{$loop->iteration}}</td>
                               <td>{{$answer->answer}}</td>
+                              @if($answer->correct_option == 1)
+                              <td>Correct</td>
+                              @else
+                              <td>Incorrect</td>
+                              @endif
                               <td>
                                 <a href="{{route('answer-show',$answer->id)}}" title="View Question">
                                 <button class="btn btn-success btn-sm">
@@ -61,8 +73,9 @@
                         @endforeach
                     </tbody>
                 </table>
-                  <div class="pagination-wrapper"> 
-                 </div>
+                   <div class="pagination-wrapper"> 
+                    {!! $answers->appends(['search' => Request::get('search')])->render() !!} 
+                  </div>
               </div>
           </div>
        </div>

@@ -11,11 +11,21 @@
                                 <tbody>
                                     <tr>
                                         <th>ID</th>
-                                        <td>{{ $question->id }}</td>
+                                        <td>{{$question->id}}</td>
                                     </tr>
                                     <tr>
                                         <th> Question </th>
                                         <td> {{ $question->question }} </td>
+                                    </tr>
+                                     <tr>
+                                        <th> Options </th>
+                                        <td>@foreach($question->answers as $option)
+                                        <li>{{$option->answer}} </li>
+                                        @endforeach</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Group Name</th>
+                                        <td>                                    {{$question->questionGroup[0]->group->group_name}}</td>
                                     </tr>
                                  </tbody>
                             </table>

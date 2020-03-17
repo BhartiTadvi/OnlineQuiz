@@ -6,8 +6,9 @@
                 <div class="box">
                     <div class="box-header">Create group</div>
                     <div class="box-body">
-                     <form method="POST" action="{{url('/group-store')}}" id="create_question" accept-charset="UTF-8" class="form-horizontal">
+                     <form method="POST" action="{{url('/group-store')}}" id="create_group" accept-charset="UTF-8" class="form-horizontal">
                           {{ csrf_field() }}
+
                          <div class="col-xs-12 col-sm-12 col-md-12">
                             <div class="form-group">
                                 <label style="margin-left:2px" for="question" class="control-label">Group name</label>
@@ -32,5 +33,25 @@
         </div>
     </div>
 @endsection
-
+@section('script')
+<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+<script>
+$(document).ready(function () {
+  $("#create_group").validate({
+    rules: {
+      group_name: 'required',
+      status: 'required',
+      },
+        messages: {
+          group_name: {
+          required: "Please enter group name",
+          }, 
+        },             
+    submitHandler: function(create_group) {
+    create_group.submit();
+    }
+  });
+});
+</script>
+@endsection
 

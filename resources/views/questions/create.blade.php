@@ -17,10 +17,23 @@
                                  {!! $errors->first('question', '<p class="help-block">:message</p>') !!}
                             </div>
                         </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12">
+                            <div class="form-group">
+                                <label for="level" class="control-label">Level name</label>
+                                <select class="form-control" name="level_id" id="level">
+                                <option value="">Select level</option>
+                                    @foreach($levels as $level)
+                                    <option value="{{$level->id}}">{{$level->level_name}}
+                                    </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
                          <div class="col-xs-12 col-sm-12 col-md-12">
                          <div class="form-group">
                             <label for="group" class="control-label">Group name</label>
-                            <select class="form-control" name="group_id" id="group">  
+                            <select class="form-control" name="group_id" id="group">
+                                <option value="">Select group</option>
                                 @foreach($groups as $group)
                                 <option value="{{$group->id}}">{{$group->group_name}}</option>
                                 @endforeach
@@ -35,7 +48,8 @@
                                 
                                  {!! $errors->first('option', '<p class="help-block">:message</p>') !!}
                             </div>
-                        </div><div class="col-xs-12 col-sm-12 col-md-12">
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12">
                             <div class="form-group">
                                 <label style="margin-left:2px" for="option2" class="control-label">Option 2</label>
 
@@ -43,7 +57,8 @@
                                 
                                  {!! $errors->first('option', '<p class="help-block">:message</p>') !!}
                             </div>
-                        </div><div class="col-xs-12 col-sm-12 col-md-12">
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12">
                             <div class="form-group">
                                 <label style="margin-left:2px" for="option3" class="control-label">Option 3</label>
 
@@ -90,8 +105,32 @@
 @endsection
 
 @section('script')
+<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
 <script>
-   
+$(document).ready(function () {
+  $("#create_question").validate({
+    rules: {
+      question: 'required',
+      level_id: 'required',
+      group_id: 'required',
+      correct_answer:'required',
+      'option[]': {
+                required: true,
+            },
+      },
+        messages: {
+          question: {
+          required: "Please enter question name",
+          },
+          correct_answer: {
+          required: "Please enter correct answer",
+          }, 
+        },             
+    submitHandler: function(create_question) {
+    create_question.submit();
+    }
+  });
+});
 </script>
 @endsection
 

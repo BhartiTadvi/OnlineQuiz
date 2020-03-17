@@ -9,8 +9,10 @@ use App\Question;
 use App\Option;
 use App\Answer;
 use App\Group;
+use App\Level;
 use App\QuestionAnswer;
 use App\QuestionGroup;
+use App\LevelGroup;
 class QuestionController extends Controller
 {
     /**
@@ -19,8 +21,9 @@ class QuestionController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-        $questions =Question::get();
+    {   
+        $perPage = 8;
+        $questions = Question::paginate($perPage);
         return view('questions.index',compact('questions'));
     }
 
@@ -32,7 +35,8 @@ class QuestionController extends Controller
     public function create()
     {   
         $groups = Group::where('is_active','active')->get();
-        return view('questions.create',compact('groups'));
+        $levels = Level::where('is_active','active')->get();
+        return view('questions.create',compact('groups','levels'));
     }
 
     /**
@@ -51,6 +55,7 @@ class QuestionController extends Controller
         $questionObj = new Question();
         $questionObj->question = $request->question;
         $questionObj->is_active = $request->status;
+        $questionObj->level_id =  $request->level_id;
         $questionObj->save();
 
         $questionGroup = new QuestionGroup();
@@ -64,17 +69,19 @@ class QuestionController extends Controller
 
             $optionObj = new Answer();
             $optionObj->answer = $createOption;
-            $optionObj->save();
-
-            $questionAnswerObj = new QuestionAnswer();
-            $questionAnswerObj->question_id = $questionObj->id;
-            $questionAnswerObj->answer_id = $optionObj->id;
+            $optionObj->question_id =  $questionObj->id;
             
             if($key == $request->correct_answer){
-                $questionAnswerObj->correct_answer = 1;
+                $optionObj->correct_option = 1;
             }
-            $questionAnswerObj->save();
+            $optionObj->save();
         }
+        
+        $levelGroupObj = new LevelGroup();
+        $levelGroupObj->level_id = $request->level_id;
+        $levelGroupObj->group_id = $request->group_id;
+        $levelGroupObj->save();
+
         return redirect()->route('question-index')->with('success', 'New question added successfully');
     }
 
@@ -86,8 +93,17 @@ class QuestionController extends Controller
      */
     public function show($id)
     {
-        $question = Question::findOrFail($id);
-        return view('questions.show', compact('question'));
+        $question = Question::with('questionGroup.group','answers')->find($id);
+
+        try {
+            if($question){
+                return view('questions.show', compact('question'));
+            }else{
+                return redirect()->route('question-index')->with('errmsg', 'Question not found');
+            }
+        }catch(\Throwable $th){
+            return redirect()->route('question-index')->with('errmsg', 'Something went wrong!');
+        }
     }
 
     /**
@@ -98,8 +114,20 @@ class QuestionController extends Controller
      */
     public function edit($id)
     {
-        $question = Question::findOrFail($id);
-        return view('questions.edit', compact('question'));
+        $question = Question::with('questionGroup.group','answers')->find($id);
+        $groups = Group::where('is_active','active')->get();
+        $levels = Level::where('is_active','active')->get();
+       
+        try {
+            if($question){
+                return view('questions.edit',compact('question','groups','levels'));
+            }else{
+                return redirect()->route('question-index')->with('errmsg', 'Question not found');
+            }
+        }catch(\Throwable $th){
+            return redirect()->route('question-index')->with('errmsg', 'Something went wrong!');
+        }
+
     }
 
     /**
@@ -116,10 +144,9 @@ class QuestionController extends Controller
             'status'=>'required', 
         ]);
           
-        $questionObj = Question::find($id);
+        $questionObj = Question::with('answers')->find($id);
         $questionObj->question = $request->question;
         $questionObj->is_active = $request->status;
-        $questionObj->save();
         
         if($questionObj->save()){
             return redirect()->route('question-index')->with('success', 'Question updated successfully');
@@ -135,6 +162,6 @@ class QuestionController extends Controller
     public function destroy($id)
     {
         Question::destroy($id);
-        return redirect()->route('question-index')->with('success', 'Question deleted successfully');
+        return redirect()->route('question-index')->with('errmsg', 'Question deleted successfully');
     }
 }

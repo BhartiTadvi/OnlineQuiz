@@ -15,4 +15,12 @@ class Group extends Model
     protected $fillable = [
         'id', 'group_name',
     ];
+
+    public function levelGroup(){   
+    	return $this->hasMany('App\LevelGroup');
+    }
+
+   	public function questions(){
+    	return $this->hasMany('App\QuestionGroup');
+    }
 }

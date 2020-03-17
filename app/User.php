@@ -32,5 +32,7 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
-
+    public function result(){
+        return $this->belongsTo('App\Result','');
+    }
 }
