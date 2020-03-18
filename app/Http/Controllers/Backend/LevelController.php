@@ -43,24 +43,16 @@ class LevelController extends Controller
             'status'=>'required', 
         ]);
 
-        $levelObj = new Level();
-        $levelObj->level_name = $request->level_name;
-        $levelObj->is_active = $request->status;
-    
-        if($levelObj->save()){
-            return redirect()->route('level-index')->with('success', 'New level added successfully');
-        }
-
       try {
-        $levelObj = new Level();
-        $levelObj->level_name = $request->level_name;
-        $levelObj->is_active = $request->status;
-        if($levelObj->save()){
-            return redirect()->route('level-index')->with('success', 'New level added successfully');
-        }
-        }catch(\Throwable $th){
-          return redirect()->route('level-index')->with('errMsg', 'Something went wrong!');
-        }
+            $levelObj = new Level();
+            $levelObj->level_name = $request->level_name;
+            $levelObj->is_active = $request->status;
+            if($levelObj->save()){
+                return redirect()->route('level-index')->with('success', 'New level added successfully');
+            }
+            }catch(\Throwable $th){
+                return redirect()->route('level-index')->with('errMsg', 'Something went wrong!');
+            }
     }
 
     /**
@@ -127,8 +119,6 @@ class LevelController extends Controller
         $levelObj->is_active = $request->status;
         $levelObj->save();
         return redirect()->route('level-index')->with('success', 'Level updated successfully');
-         
-                
     }
 
        

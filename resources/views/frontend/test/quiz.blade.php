@@ -20,7 +20,7 @@
   </ul>
   <!-- fieldsets -->
   <fieldset>
-
+    <strong style="padding: 4px;font-size:15px">* Each question carry 2 marks</strong>
      <ol>
           @foreach($easy as $easyQuestion)
               <li>

@@ -19,7 +19,11 @@ Route::get('/admin/login', function () {
     return view('login');
     })->name('admin.login');
 
-Route::get('/login','Frontend\RegistrationController@create')->name('login');
+Route::get('/user/login','Frontend\RegisterController@create')->name('login');
+
+Route::get('/admin/register','Auth\RegisterController@showRegistrationForm')->name('admin.register');
+
+
 
 Route::get('/post', 'PostController@index')->name('post.index');
 Route::get('/post/create', 'PostController@create')->name('post.create');
